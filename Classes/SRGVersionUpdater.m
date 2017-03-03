@@ -63,26 +63,33 @@ NSLocalizedStringFromTableInBundle(key, @"SRGVersionUpdater", [NSBundle bundleWi
 }
 
 - (NSString *) alertTitle {
-    return _customAlertTitle ? _customAlertTitle : [self localizedStringWithFormat:@"SRGVersionUpdater.alert.title"];
+    
+    return _customAlertTitle ? _customAlertTitle : @"New version arrived";
 }
 
 - (NSString *) alertBody {
-    return _customAlertBody ? _customAlertBody : [self localizedStringWithFormat:@"SRGVersionUpdater.alert.body"];
+    
+    return _customAlertBody ? _customAlertBody : @"Please download latest version from the Apple App Store";
 }
 
 - (NSString *) updateButtonText {
-    return [self localizedStringWithFormat:@"SRGVersionUpdater.alert.updateButton"];
+    
+    return @"Download";
 }
 
 - (NSString *) cancelButtonText {
-    return [self localizedStringWithFormat:@"SRGVersionUpdater.alert.calcelButton"];
+    
+    return @"Update After";
 }
 
 - (NSInteger) versionNumberFromString:(NSString *)versionString{
+    
+    
     return [[versionString stringByReplacingOccurrencesOfString:@"." withString:@""] intValue];
 }
 
 - (NSString *) localizedStringWithFormat:(NSString *)format {
+    
     return SRGVersionUpdaterLocalizedStrings(format);
 }
 
