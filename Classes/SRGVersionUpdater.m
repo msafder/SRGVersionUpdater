@@ -23,6 +23,7 @@ NSLocalizedStringFromTableInBundle(key, @"SRGVersionUpdater", [NSBundle bundleWi
    NSAssert(_endPointUrl, @"Set EndPointUrl Before Execute Check");
     
    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+   manager.session.configuration.URLCache = nil;
    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"application/json",nil];
    [manager GET:_endPointUrl parameters:nil
        success:^(AFHTTPRequestOperation *operation, id responseObject) {
