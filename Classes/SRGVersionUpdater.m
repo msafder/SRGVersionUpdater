@@ -20,19 +20,19 @@ NSLocalizedStringFromTableInBundle(key, @"SRGVersionUpdater", [NSBundle bundleWi
 #endif
 
 - (void) executeVersionCheck {
-   NSAssert(_endPointUrl, @"Set EndPointUrl Before Execute Check");
+    NSAssert(_endPointUrl, @"Set EndPointUrl Before Execute Check");
     
-   AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-   manager.session.configuration.URLCache = nil;
-   manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"application/json",nil];
-   [manager GET:_endPointUrl parameters:nil
-       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-           versionInfo = responseObject;
-           [self showUpdateAnnounceIfNeeded];
-       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           NSLog(@"Request Operation Error! %@", error);
-       }
-   ];
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    [manager.requestSerializer setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"application/json",nil];
+    [manager GET:_endPointUrl parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             versionInfo = responseObject;
+             [self showUpdateAnnounceIfNeeded];
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Request Operation Error! %@", error);
+         }
+     ];
 }
 
 - (void) showUpdateAnnounceIfNeeded {
